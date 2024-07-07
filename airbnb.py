@@ -15,7 +15,7 @@ if __name__ == "__main__":
         SparkSession.builder
         .master("local[*]")
         .appName("airbnb")
-        .config("spark.jars","mysql-connector-java-8.0.13.jar")
+        .config("spark.jars", "/home/austin/jarfile/mysql-connector-java-8.0.13.jar")
         .getOrCreate()
     )
 
@@ -29,15 +29,17 @@ if __name__ == "__main__":
     df.printSchema()
     df.show(10)
 
+
+properties = {
+    "user": "austin",
+    "password": "1234",
+    "driver": "com.mysql.jdbc.Driver"
+}
+
+url = 'jdbc:mysql://localhost:3306/database1'
+mode = 'overwrite'
 def write():
-    (df.write
-        .format("jdbc")
-        .mode("overwrite")
-        .option('url', 'jdbc:mysql://localhost:3306/database1')
-        .option("driver", "com.mysql.cj.jdbc.Driver")
-        .option("dbtable", "airbnb")
-        .option("user", "austin")
-        .option("password", "1234")
+    (df.write.jdbc(url, mode, properties)
         .save())
 
 write()
