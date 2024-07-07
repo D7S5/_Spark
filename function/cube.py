@@ -13,6 +13,8 @@ import pandas as pd
 
 # cubed_udf = pandas_udf(cubed, returnType='long')
 
+
+# Apache arrow
 spark = (
     SparkSession.builder
     .master('local[*]')
@@ -20,18 +22,22 @@ spark = (
     .getOrCreate()
 )
 
-
 def cubed(a):
     return a * a * a 
-
-a = 2
-print(cubed(a))
 
 spark.udf.register("cubed", cubed, LongType())
 spark.range(1,9).createOrReplaceTempView('udf_test')
 
 spark.sql('SELECT id, cubed(id) AS id_cubed FROM udf_test').show()
 
-# df = spark.range(1,4)
-# df.select("id", cubed_udf(col("id"))).show()
+
+def pandas_cubed(a: pd.Series) -> pd.Series:
+    return a * a * a 
+
+cubed_udf = pandas_udf(pandas_cubed, returnType=LongType())
+x = pd.Series([1,2,3])
+print(pandas_cubed(x))
+
+pandas_df = spark.range(1,4)
+pandas_df.select("id", cubed_udf(col("id"))).show()
 
