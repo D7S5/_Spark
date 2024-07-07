@@ -2,7 +2,7 @@ import sys
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
+# from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
 
 from schema.airbnb_schema import airbnb_schema
 from config.mysql_conf import jars
