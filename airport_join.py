@@ -30,11 +30,15 @@ departureDelays = (
         .load(tripdelaysFilePath)
 )
 
+departureDelays.printSchema()
+
 departureDelays = (
     departureDelays
     .withColumn('delay', expr("CAST(delay as INT) as delay"))
     .withColumn('distance', expr("CAST(distance as INT) as distance"))
 )
+
+departureDelays.printSchema()
 
 departureDelays.createOrReplaceTempView("departureDelays")
 
@@ -44,7 +48,9 @@ temp = (departureDelays
 temp.createOrReplaceTempView('temp')
 
 spark.sql("SELECT * FROM airports_na LIMIT 10").show(10)
+spark.sql("SELECT * FROM departureDelays LIMIT 10").show(10)
 
+spark.sql("SELECT * FROM temp").show()
 
 
 
