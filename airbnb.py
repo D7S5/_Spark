@@ -5,7 +5,7 @@ from pyspark.sql.functions import *
 # from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
 
 from schema.airbnb_schema import airbnb_schema
-from config.mysql_conf import jars
+from config.mysql_conf import jars, url
 
 
 if len(sys.argv)!=2:
@@ -30,7 +30,7 @@ df = (
         .load(sys.argv[1])
     )
 
-url = 'jdbc:mysql://localhost:3306/database1'
+
 mode = 'overwrite'
 table_name = 'airbnb4'
 
