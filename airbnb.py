@@ -30,19 +30,20 @@ if __name__ == "__main__":
     df.show(10)
 
 
-properties = {
-    "user": "austin",
-    "password": "1234",
-    "driver": "com.mysql.jdbc.Driver"
-}
-
 url = 'jdbc:mysql://localhost:3306/database1'
 mode = 'overwrite'
-def write():
-    (df.write.jdbc(url, mode, properties)
-        .save())
+table_name = 'airbnb2'
 
-write()
+(df.write
+    .format('jdbc')
+    .option("driver","com.mysql.cj.jdbc.Driver")
+    .option('url' , url)
+    .option('mode' , mode)
+    .option('dbtable' , table_name)
+    .option('user', 'austin')
+    .option('password', '1234')
+    .save())
+
     
     # airbnb_df = (
     #     df.select("*")
