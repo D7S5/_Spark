@@ -5,6 +5,7 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, TimestampType
 
 from schema.airbnb_schema import airbnb_schema
+from config.mysql_conf import jars
 
 
 if len(sys.argv)!=2:
@@ -16,7 +17,7 @@ if __name__ == "__main__":
         SparkSession.builder
         .master("local[*]")
         .appName("airbnb")
-        .config("spark.jars", "/home/austin/jarfile/mysql-connector-java-8.0.13.jar")
+        .config("spark.jars", jars)
         .getOrCreate()
     )
 
