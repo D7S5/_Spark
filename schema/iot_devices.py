@@ -1,4 +1,5 @@
 from pyspark.sql.types import StructType, StructField, LongType, VarcharType, DoubleType, ShortType, StringType
+
     
 iot_devices_schema = StructType([
         StructField("device_id", LongType(), nullable = False), 
@@ -8,7 +9,7 @@ iot_devices_schema = StructType([
         StructField("cca3", VarcharType(5), nullable = False), 
         StructField("cn", VarcharType(10), nullable = False), 
         StructField("latitude", StringType(), nullable = False), 
-        StructField("longitude", StringType, nullable = False), 
+        StructField("longitude", StringType() , nullable = False), 
         StructField("scale", VarcharType(10), nullable = False), 
         StructField("temp", ShortType(), nullable = False), 
         StructField("humidity",ShortType(), nullable = False), 

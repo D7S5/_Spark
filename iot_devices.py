@@ -8,6 +8,7 @@ spark = (
     .master('local[*]')
     .appName('lot_devices')
     .config("spark.jars", jars)
+    .config("spark.sql.legacy.charVarcharAsString", True) # fix : Longtext 
     .getOrCreate()
 )
 
