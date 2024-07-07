@@ -19,30 +19,37 @@ if __name__ == "__main__":
         .getOrCreate()
     )
 
-    df = (
-        spark.read
-        .option("header",True)
-        .option("inferSchema",True)
-        .csv(sys.argv[1]))
-    
-    # airbnb_df = (spark.sparkContext.parallelize(df).toDF(col))
-    df.printSchema()
-    df.show(10)
+df = (
+    spark.read
+    .option("header",True)
+    .option("inferSchema",True)
+    .csv(sys.argv[1]))
 
+# airbnb_df = (spark.sparkContext.parallelize(df).toDF(col))
+df.printSchema()
+
+def trim_all_string_columns(df : DataFrame) -> DataFrame:
+    return (
+        df.select(*[trim(col(c[0]).alias(c[0]) if c[1] == 'string' else col[0]) for c in df.dtypes])
+        )
+
+
+df_trimmed = (df.transform(trim_all_string_columns))
+df_trimmed.show(1)
 
 url = 'jdbc:mysql://localhost:3306/database1'
 mode = 'overwrite'
-table_name = 'airbnb2'
+table_name = 'airbnb4'
 
-(df.write
-    .format('jdbc')
-    .option("driver","com.mysql.cj.jdbc.Driver")
-    .option('url' , url)
-    .option('mode' , mode)
-    .option('dbtable' , table_name)
-    .option('user', 'austin')
-    .option('password', '1234')
-    .save())
+# (df_trimmed.write
+#     .format('jdbc')
+#     .option("driver","com.mysql.cj.jdbc.Driver")
+#     .option('url' , url)
+#     .option('mode' , mode)
+#     .option('dbtable' , table_name)
+#     .option('user', 'austin')
+#     .option('password', '1234')
+#     .save())
 
     
     # airbnb_df = (
