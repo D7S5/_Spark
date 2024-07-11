@@ -4,8 +4,6 @@ from pyspark.sql.types import LongType
 
 from pyspark.sql import SparkSession
 
-import pandas as pd
-
 
 # @pandas_udf('long')
 # def cubed(a):
