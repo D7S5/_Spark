@@ -14,7 +14,7 @@ if len(sys.argv) != 2:
     exit(-1)
     
 
-df = spark.read.parquet(sys.argv)
+df = spark.read.parquet(sys.argv[1])
 
 df.show(10)
 
