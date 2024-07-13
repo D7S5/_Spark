@@ -21,7 +21,7 @@ if __name__ == "__main__":
         .option("driver","com.mysql.cj.jdbc.Driver")
         .option('dbtable', dbtable)
         .option('sql', sql)
-        .option('user', user)
+        .option('user', 'austin')
         .option('password', password)
         .load()
     )
