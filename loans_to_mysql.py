@@ -28,6 +28,6 @@ dbtable = 'loans'
     .option('url', url_db1)
     .option('driver', 'com.mysql.cj.jdbc.Driver')
     .option('dbtable', dbtable)
-    .option('user', user)
+    .option('user', 'austin')
     .option('password', password)
     .save())

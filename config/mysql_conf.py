@@ -6,4 +6,4 @@ url_db1 = 'jdbc:mysql://localhost:3306/db1'
 
 mode_overwrite = 'overwrite'
 
-password = '1234'
+password = 'austin@mysql'
