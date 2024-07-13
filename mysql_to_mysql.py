@@ -26,7 +26,7 @@ if __name__ == "__main__":
         .load()
     )
 
-    df.show(10)
+    # df.show(10)
     
     # rank_function = (rank()
     #     .over(Window.partitionBy('addr_state')
