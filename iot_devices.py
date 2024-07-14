@@ -33,10 +33,10 @@ mode = 'overwrite'
 (df.write
     .format('jdbc')
     .option("driver","com.mysql.cj.jdbc.Driver")
-    .option('url' , url)
+    .option('url' , url_database1)
     .option('mode' , mode)
     .option('dbtable' , table_name)
-    .option('user', user)
+    .option('user', 'austin')
     .option('password', password)
     .save())
 

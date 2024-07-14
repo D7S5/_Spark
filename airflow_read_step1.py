@@ -10,7 +10,6 @@ spark = (
     .getOrCreate()
 )
 
-
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("path : <> :", file= sys.stderr)
@@ -20,7 +19,6 @@ if __name__ == "__main__":
 
     df.printSchema()
     df.show()
-
   
     (
         df.write.format('jdbc').option('driver', 'com.mysql.cj.jdbc.Driver')

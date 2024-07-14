@@ -24,7 +24,6 @@ mnm_df = (spark.read.format("csv")
             .option("inferSchema", "true")
             .load(path))
 
-
 count_mnm_df = mnm_df.select("State", "Color", "Count").groupBy("State", "Color").sum("Count").orderBy("sum(Count)", ascending=False)
 
 count_mnm_df.show(n=50, truncate=True)
