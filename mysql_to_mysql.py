@@ -2,6 +2,7 @@ from config.mysql_conf import *
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
+from pyspark.sql.types import StringType
 
 if __name__ == "__main__":
     spark = (
@@ -29,8 +30,11 @@ if __name__ == "__main__":
     # df.printSchema()
     # df.show(50)
 
-
-    #  for -> if  a.funded.amnt == b.funded_amnt : sum() -> avg() ->  
+    # & 압축
+    df2 = (df.filter(col("addr_state") == "CA"))
+    df3 = (df2.filter((col("funded_amnt") >= 10000)))
+    df4 = (df3.filter(col("funded_amnt") <= 20000)).show(50)
+    
     
     # rank_function = (rank()
     #     .over(Window.partitionBy('addr_state')
@@ -44,10 +48,6 @@ if __name__ == "__main__":
     #     .agg(avg('funded_amnt').alias('avg_funded_amnt'))
     # #     .show(30))
 
-    # df.filter(df.addr_state == 'CA')
-    # df.filter(df.funded_amnt >= 10000)
-    # df.filter(df.funded_amnt <= 20000).show()
-    
     # .option('url', url_db1)
     #     .option('mode', mode_overwrite)
     #     .option('dbtable', table_name)
