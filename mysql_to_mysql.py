@@ -19,7 +19,7 @@ if __name__ == "__main__":
     df = (
         spark.read.format('jdbc')
         .option('url', url_db1)
-        .option("driver","com.mysql.cj.jdbc.Driver")
+        .option("driver", driver)
         .option('dbtable', dbtable)
         .option('sql', sql)
         .option('user', 'austin')
