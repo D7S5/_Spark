@@ -1,5 +1,4 @@
 from pyspark.sql import SparkSession
-
 from config.mysql_conf import *
 # project cost
 from schema.blogs_schema import *
@@ -19,22 +18,26 @@ if __name__ == "__main__":
         print("path <> :" , file = sys.stderr)
         sys.exit(-1)
 
-df = spark.read.schema(blogs_schema).json(sys.argv[1])
 
+
+df = (spark.read.schema(blogs_schema).json(sys.argv[1]))
+
+df.printSchema()
 df.show(10)
 
-# db_name = "db3"
-# dbtable = "blogs"
-# mode = 'overwrite'
+db_name = "db3"
+dbtable = "blogs"
+mode = 'overwrite'
 
-# (df.write
-#     .format('jdbc')
-#     .option("driver", driver)
-#     .option('url' , url + db_name)
-#     .option('mode' , mode)
-#     .option('dbtable' , dbtable)
-#     .option('user', 'austin')
-#     .option('password', password)
-#     .save())
+
+
+(df.write.format('jdbc')
+    .option('url' , url + db_name)
+    .option("driver", driver)
+    .option('mode' , mode)
+    .option('dbtable' , dbtable)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
 
 

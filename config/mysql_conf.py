@@ -1,5 +1,5 @@
 jars = "/home/austin/jarfile/mysql-connector-java-8.0.13.jar"
-driver = 'com/mysql.cj.jdbc.Driver'
+driver = 'com.mysql.cj.jdbc.Driver'
 
 url = "jdbc:mysql://localhost:3306/"
 

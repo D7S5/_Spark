@@ -1,3 +1,7 @@
 bin/spark-shell --jars mysql-connector-java_8.0.16-bin.jar
 
 pyarrow
+
+
+from pyspark.sql.functions import to_json, struct
+df.select(to_json(struct(struct([df[x] for x in df.columns]))).alias("jsonobject")

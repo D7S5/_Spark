@@ -8,5 +8,5 @@ blogs_schema = StructType([
     StructField("Url", StringType(), nullable= False),
     StructField("Published", StringType(), nullable= False),
     StructField("Hits", IntegerType(), nullable= False),
-    StructField("Campaigns", ArrayType(StringType()), nullable= False),
+    StructField("Campaigns", ArrayType(StringType()), nullable= True),
 ])
