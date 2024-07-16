@@ -31,16 +31,13 @@ blogs_schema = StructType([
 ])
 
 df = (spark.read.format('json')
-      .option('multiline', True)
+    #   .option('multiline', True)
       .schema(blogs_schema)
       .load(sys.argv[1]))
 
-df2 = df.na.drop("all")
-df2.show(10)
-
-
-# df3 = (df2.select('Id','First','Last','Url','Published','Hits','Campaigns'))
-#     #    .withColumn("Campaigns", expr("CAST(Campaigns as String)")))
+df2 = (
+    df.select("Id", "First", "Last", "Url", "Published", "Hits", explode(df.Campaigns).alias("Campaigns")).show(10) 
+    )
 
 # df3.printSchema()
 # df3.show(10)
