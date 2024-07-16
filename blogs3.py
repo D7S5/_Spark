@@ -39,17 +39,13 @@ df.printSchema()
 df.show(10)
 # ts_pattern ="MM/dd/yyyy"
 
-df2 = (df.select(to_date("Published", "M/d/yyyy").alias("date")).show())
-# df2.show(10)
-
-# df2.printSchema()
-# df2.show(10)
-# df3 = (
-#     df2.select("Id", "First", "Last", "Url",
-#             "Published",
-#             "Hits",
-#             explode(df.Campaigns).alias("Campaigns")).show(10) 
-#     )
+# df2 = (df.select(to_date("Published", "M/d/yyyy").alias("date")))
+df2 = (
+    df.select("Id", "First", "Last", "Url",
+            to_date("Published", "M/d/yyyy").alias("Published"),
+            "Hits",
+            explode(df.Campaigns).alias("Campaigns")).show(10) 
+    )
 
 # df3.printSchema()
 # df3.show(10)
