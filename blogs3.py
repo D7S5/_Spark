@@ -2,11 +2,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import StringType, ArrayType, StructField, StructType, IntegerType, LongType, DateType
 
-
 import sys
 
 from config.mysql_conf import *
-
 
 spark = (
     SparkSession.builder
@@ -45,11 +43,12 @@ df2= (
             "Hits",
             explode(df.Campaigns).alias("Campaigns"))
 )
+              # explode Array
 
 df2.show()
 df2.printSchema()
 
-dbtable = 'blogs4'
+dbtable = 'blogs5'
 db_name = 'db3'
 
 (df2.write.format('jdbc')
