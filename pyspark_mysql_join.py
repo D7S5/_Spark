@@ -45,25 +45,29 @@ if __name__ == "__main__":
     df_departments.show()
     df_employees.show()
 
-    join_type = "full" # full outer join
+    join_type = "inner" # full outer join
     join_expression = df_employees.department_id == df_departments.department_id
 
-    df = df_employees.join(df_departments, join_expression, join_type)
+    df = (
+        df_employees.join(df_departments, join_expression, join_type)
+          .select("employee_id", "employee_name", "department_name")
+          ).show()
 
-    df2 = (
-        df.select("employee_id", "employee_name", "department_name").na.drop()
-        ).show() # na.drop : remove all rows with any null values.
+
+    # df2 = (
+    #     df.select("employee_id", "employee_name", "department_name").na.drop()
+    #     ).show() # na.drop : remove all rows with any null values.
     
     
     table_name = "new_employees"
 
-    # (df2.write.format('jdbc')
-    # .option('url', url + db_name)
-    # .option('driver', driver)
-    # .option('dbtable', table_name)
-    # .option('user', 'austin')
-    # .option('password', password)
-    # .save())
+    (df.write.format('jdbc')
+    .option('url', url + db_name)
+    .option('driver', driver)
+    .option('dbtable', table_name)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
 
 
 
