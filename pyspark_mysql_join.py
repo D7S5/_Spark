@@ -45,7 +45,7 @@ if __name__ == "__main__":
     df_departments.show()
     df_employees.show()
 
-    join_type = "inner"
+    join_type = "full" # full outer join
     join_expression = df_employees.department_id == df_departments.department_id
 
     df = df_employees.join(df_departments, join_expression, join_type)
@@ -53,8 +53,17 @@ if __name__ == "__main__":
     df2 = (
         df.select("employee_id", "employee_name", "department_name")
         )
-
     df2.show(10)
+
+    table_name = "new_employees"
+
+    # (df2.write.format('jdbc')
+    # .option('url', url + db_name)
+    # .option('driver', driver)
+    # .option('dbtable', table_name)
+    # .option('user', 'austin')
+    # .option('password', password)
+    # .save())
 
 
 
