@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
-
+from pyspark.sql.functions import *
+from pyspark.sql.types import StringType, ArrayType
 import sys
 from config.mysql_conf import *
 
@@ -18,9 +19,15 @@ if len(sys.argv) != 2:
 
 df = (spark.read.format('json').load(sys.argv[1]))
 
-df.printSchema()
+df2 = df.select('Id','First','Last','Url','Published','Hits','Campaigns')
+df2.printSchema()
 
-df.show()
+df2.show()
+
+# blogs = (
+#     df.withColumn('Campaigns', expr("CAST()"))
+# )
+
 
 
 db_name = 'db3'

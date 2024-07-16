@@ -1,5 +1,3 @@
-from pyspark.sql.functions import expr
-
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from config.mysql_conf import *
