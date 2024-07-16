@@ -51,15 +51,14 @@ if __name__ == "__main__":
     df = (
         df_employees.join(df_departments, join_expression, join_type)
           .select("employee_id", "employee_name", "department_name")
-          ).show()
+          )
 
 
     # df2 = (
     #     df.select("employee_id", "employee_name", "department_name").na.drop()
     #     ).show() # na.drop : remove all rows with any null values.
     
-    
-    table_name = "new_employees"
+    table_name = "_employees"
 
     (df.write.format('jdbc')
     .option('url', url + db_name)
