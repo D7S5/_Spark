@@ -36,12 +36,12 @@ df = (spark.read.format('json')
       .load(sys.argv[1]))
 
 
-# ts_pattern ="MM/dd/yyyy"
+ts_pattern ="M/d/yyyy"
 
 # df2 = (df.select(to_date("Published", "M/d/yyyy").alias("date")))
 df2= (
     df.select("Id", "First", "Last", "Url",
-            to_date("Published", "M/d/yyyy").alias("Published"),
+            to_date("Published", ts_pattern).alias("Published"),
             "Hits",
             explode(df.Campaigns).alias("Campaigns"))
 )
@@ -49,7 +49,7 @@ df2= (
 df2.show()
 df2.printSchema()
 
-dbtable = 'blogs3'
+dbtable = 'blogs4'
 db_name = 'db3'
 
 (df2.write.format('jdbc')
