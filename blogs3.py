@@ -35,26 +35,27 @@ df = (spark.read.format('json')
     #   .schema(blogs_schema)
       .load(sys.argv[1]))
 
-df.printSchema()
-df.show(10)
+
 # ts_pattern ="MM/dd/yyyy"
 
 # df2 = (df.select(to_date("Published", "M/d/yyyy").alias("date")))
-df2 = (
+df2= (
     df.select("Id", "First", "Last", "Url",
             to_date("Published", "M/d/yyyy").alias("Published"),
             "Hits",
-            explode(df.Campaigns).alias("Campaigns")).show(10) 
-    )
+            explode(df.Campaigns).alias("Campaigns"))
+)
 
-# df3.printSchema()
-# df3.show(10)
+df2.show()
+df2.printSchema()
 
+dbtable = 'blogs3'
+db_name = 'db3'
 
-
-# df = df.na.drop('all').show(10)
-
-
-
-# df2.printSchema()
-# df2.show(10)
+(df2.write.format('jdbc')
+    .option('url', url + db_name)
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', dbtable)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
