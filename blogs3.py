@@ -30,10 +30,26 @@ blogs_schema = StructType([
     StructField("Campaigns", ArrayType(StringType()), nullable= True),
 ])
 
-df = (spark.read.format('json').option('multiline', True).schema(blogs_schema).load(sys.argv[1]))
+df = (spark.read.format('json')
+      .option('multiline', True)
+      .schema(blogs_schema)
+      .load(sys.argv[1]))
 
-# df2 = (df.select('Id','First','Last','Url','Published','Hits','Campaigns')
-#        .withColumn("Campaigns", expr("CAST(Campaigns as String)")))
+df2 = df.na.drop("all")
+df2.show(10)
+
+
+# df3 = (df2.select('Id','First','Last','Url','Published','Hits','Campaigns'))
+#     #    .withColumn("Campaigns", expr("CAST(Campaigns as String)")))
+
+# df3.printSchema()
+# df3.show(10)
+
+
+
+# df = df.na.drop('all').show(10)
+
+
 
 # df2.printSchema()
 # df2.show(10)
