@@ -20,7 +20,7 @@ if len(sys.argv) != 2:
 df = (spark.read.format('json').load(sys.argv[1]))
 
 df2 = (df.select('Id','First','Last','Url','Published','Hits','Campaigns')
-       .withColumn("Campaigns", expr("CAST(Campaigns as String) as New_Campaigns")))
+       .withColumn("Campaigns", expr("CAST(Campaigns as String)")))
 
 df2.printSchema()
 df2.show(10)
