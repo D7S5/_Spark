@@ -31,9 +31,12 @@ if __name__ == "__main__":
     # df.show(50)
 
     # & 압축
-    df2 = (df.filter(col("addr_state") == "CA"))
-    df3 = (df2.filter((col("funded_amnt") >= 10000)))
-    df4 = (df3.filter(col("funded_amnt") <= 20000)).show(50)
+    df2 = (df.filter(expr("""addr_state == 'CA' AND funded_amnt >= 10000 AND funded_amnt <= 20000 """))
+           .orderBy("funded_amnt", ascending =False))
+
+    #  AND funded_amnt >= 10000 AND funded_amnt <= 20000
+    
+    df2.show()
     
     
     # rank_function = (rank()
