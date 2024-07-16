@@ -19,16 +19,24 @@ if len(sys.argv) != 2:
 
 df = (spark.read.format('json').load(sys.argv[1]))
 
-df2 = df.select('Id','First','Last','Url','Published','Hits','Campaigns')
-df2.printSchema()
+df2 = (df.select('Id','First','Last','Url','Published','Hits','Campaigns')
+       .withColumn("Campaigns", expr("CAST(Campaigns as String) as New_Campaigns")))
 
-df2.show()
+df2.printSchema()
+df2.show(10)
 
 # blogs = (
 #     df.withColumn('Campaigns', expr("CAST()"))
 # )
+# df3 = df2.withColumn("Campaigns", expr("CAST(Campaigns as String) as New_Campaigns"))
+# df4 = df3.select(substring(df3.Campaigns, 2, -2)).alias("Camapaigns").collect()
+# df4.show()
 
+# @udf(returnType = StringType())
+# def function1(a : str ) -> str:
+#     return      
 
+# Array[String] -> String remove( [ ] )
 
 db_name = 'db3'
 dbtable = "blogs2"
