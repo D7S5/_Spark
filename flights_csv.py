@@ -32,7 +32,7 @@ df2 = (
         )
 
 dbname = 'db4'
-dbtable = 'flights_count' # table name long text  2010-2015_United_state flights coungt
+dbtable = 'flights_count' # table name long text  2010-2015_United_state flights count
 
 (df2.write.format('jdbc')
     .option('url', url+dbname)
