@@ -27,7 +27,7 @@ df = (
 df2 = (
     df.filter(expr("""DEST_COUNTRY_NAME == 'United States'"""))
         .groupBy('DEST_COUNTRY_NAME', 'ORIGIN_COUNTRY_NAME')
-        .agg(sum('count').alias("2010-2015 count"))
+        .agg(sum('count').alias('2010-2015 count'))
         .orderBy(desc("2010-2015 count"))
         )
 
@@ -36,6 +36,7 @@ dbtable = 'flights_count' # table name long text  2010-2015_United_state flights
 
 (df2.write.format('jdbc')
     .option('url', url+dbname)
+    .option('mode', 'overwrite')
     .option('driver', 'com.mysql.cj.jdbc.Driver')
     .option('dbtable', dbtable)
     .option('user', 'austin')
