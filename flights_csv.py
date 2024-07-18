@@ -26,7 +26,8 @@ df = (
 
 df2 = (
     df.filter(expr("""DEST_COUNTRY_NAME == 'United States'"""))
-    .orderBy("count", ascending =False)
-    )
-df2.show(10)
+        .groupBy('DEST_COUNTRY_NAME', 'ORIGIN_COUNTRY_NAME')
+        .agg(sum('count').alias("2010-2015 count"))
+        .orderBy(desc("2010-2015 count")).show(10)
+        )
 
