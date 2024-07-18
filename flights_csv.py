@@ -1,7 +1,7 @@
 import sys
 
 from pyspark.sql import SparkSession
-
+from pyspark.sql.functions import *
 from config.mysql_conf import *
 
 spark = (
@@ -17,7 +17,16 @@ if __name__ == "__main__":
         print('path <> :' , file= sys.stderr)
         sys.exit(-1)
 
-df = spark.read.parquet(sys.argv[1])
+df = (
+    spark.read
+    .option('header', True)
+    .option("inferschema", True)
+    .csv(sys.argv[1])
+    )
 
-df.show(20)
+df2 = (
+    df.filter(expr("""DEST_COUNTRY_NAME == 'United States'"""))
+    .orderBy("count", ascending =False)
+    )
+df2.show(10)
 
