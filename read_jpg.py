@@ -31,19 +31,17 @@ df2 = (df.select('image.origin'
             'image.mode', 'image.data'))
 
 db_name = 'db4'
-mode = 'overwrite'
-dbtable = 'cctvImages'
 
+dbtable = 'cctvImages'
+mode = 'append'
 # SET GLOBAL sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
-# Data truncation: Data too long for column 'data' at row 1
+# Data truncation: Data too long for column 'data' at row 1 -> CREATE TABLE 
 
 (df2.write.format('jdbc')
     .option('url' , url + db_name)
     .option("driver", driver)
-    .option('mode' , mode)
+    .mode(mode)
     .option('dbtable' , dbtable)
     .option('user', 'austin')
     .option('password', password)
     .save())
-
-x
