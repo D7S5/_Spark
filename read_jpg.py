@@ -34,7 +34,7 @@ db_name = 'db4'
 
 dbtable = 'cctvImages'
 mode = 'append'
-# SET GLOBAL sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+# default GLOBAL sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
 # Data truncation: Data too long for column 'data' at row 1 -> CREATE TABLE 
 
 (df2.write.format('jdbc')
