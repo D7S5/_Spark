@@ -18,8 +18,6 @@ if __name__ == "__main__":
         print("path <> :" , file = sys.stderr)
         sys.exit(-1)
 
-
-
 df = (spark.read.schema(blogs_schema).json(sys.argv[1]))
 
 df.printSchema()
@@ -28,8 +26,6 @@ df.show(10)
 db_name = "db3"
 dbtable = "blogs"
 mode = 'overwrite'
-
-
 
 (df.write.format('jdbc')
     .option('url' , url + db_name)

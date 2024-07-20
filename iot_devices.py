@@ -33,19 +33,22 @@ df2 = (
     .filter(expr("""cca3 == 'USA'""") )
 )
 
+df2.printSchema()
+df2.show(10)
+
 db_name = 'db4'
 table_name = 'US_iot_devices'
 
 mode = 'overwrite'
 
-(df2.write
-    .format('jdbc')
-    .option('driver','com.mysql.cj.jdbc.Driver')
-    .option('url' , url + db_name)
-    .option('mode' , mode)
-    .option('dbtable' , table_name)
-    .option('user', 'austin')
-    .option('password', password)
-    .save())
+# (df2.write
+#     .format('jdbc')
+#     .option('driver','com.mysql.cj.jdbc.Driver')
+#     .option('url' , url + db_name)
+#     .option('mode' , mode)
+#     .option('dbtable' , table_name)
+#     .option('user', 'austin')
+#     .option('password', password)
+#     .save())
 
 
