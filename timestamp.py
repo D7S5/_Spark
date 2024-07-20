@@ -9,7 +9,7 @@ spark = (
     )
 
 
-input_data = [(1, 1458444054093), (2, 1458444054092), (3, 1458444054000)]
+input_data = [(1, 1719792000), (2, 1722470399)]
 
 schema = StructType([
     StructField('id', LongType(), True),
@@ -20,7 +20,9 @@ df = (
     spark.createDataFrame(
         data = input_data, schema = schema))
 
-(df.select('id', 'unix_timestamp')).show()
+(df.select('id', 
+           from_unixtime('unix_timestamp').alias('timestamp'))
+ ).show()
 
 # df2 = (df.select('unix_timestamp', cast('long'))).show()
 
