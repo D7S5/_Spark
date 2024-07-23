@@ -7,7 +7,7 @@ from config.mysql_conf import *
 spark = (
     SparkSession.builder
     .master('local[*]')
-    .appName('flights_parquet')
+    .appName('flights_csv')
     .config('spark.driver.extraClassPath', jars)
     .getOrCreate()
 )
