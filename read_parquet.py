@@ -20,4 +20,3 @@ if __name__ == "__main__":
 df = spark.read.parquet(sys.argv[1])
 
 df.show(20)
-
