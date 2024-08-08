@@ -38,25 +38,26 @@ df2 = (df.select('*')
        .orderBy(desc('2010-2015_count'))
 )
 
-w = ((Window.partitionBy('DEST_COUNTRY_NAME').orderBy('2010-2015_count')))
+w = ((Window.partitionBy('DEST_COUNTRY_NAME').orderBy(desc('2010-2015_count'))))
 
 df3 = (
-    df2.withColumn('rank', rank().over(w).desc())
-    ).show(20)
-# rank = (df2.withColumn('2010-2015_count', rank_function))
+    df2.withColumn('rank', rank().over(w))
+    )
+
+
 
 # rank.show(10)
 
 
 # df2.show(10)
 dbname = 'db4'
-dbtable = 'flights_all' # table name long text  2010-2015_United_state flights count
+dbtable = 'flights_rank_desc' # table name long text  2010-2015_United_state flights count
 
-# (df2.write.format('jdbc')
-#     .option('url', url+dbname)
-#     .option('mode', 'overwrite')
-#     .option('driver', 'com.mysql.cj.jdbc.Driver')
-#     .option('dbtable', dbtable)
-#     .option('user', 'austin')
-#     .option('password', password)
-#     .save())
+(df3.write.format('jdbc')
+    .option('url', url+dbname)
+    .option('mode', 'overwrite')
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', dbtable)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
