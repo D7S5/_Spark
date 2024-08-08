@@ -32,10 +32,17 @@ df = (
 #         .orderBy(desc('2010-2015_count'))
 #         )
 
-df2 = df.select('*')
-# rank_function = (rank()
-#                  .over(Window.orderBy('2010-2015_count'))
-#                  )
+df2 = (df.select('*')
+       .groupBy('DEST_COUNTRY_NAME', 'ORIGIN_COUNTRY_NAME')
+       .agg(sum('count').alias('2010-2015_count'))
+       .orderBy(desc('2010-2015_count'))
+)
+
+w = ((Window.partitionBy('DEST_COUNTRY_NAME').orderBy('2010-2015_count')))
+
+df3 = (
+    df2.withColumn('rank', rank().over(w).desc())
+    ).show(20)
 # rank = (df2.withColumn('2010-2015_count', rank_function))
 
 # rank.show(10)
@@ -45,11 +52,11 @@ df2 = df.select('*')
 dbname = 'db4'
 dbtable = 'flights_all' # table name long text  2010-2015_United_state flights count
 
-(df2.write.format('jdbc')
-    .option('url', url+dbname)
-    .option('mode', 'overwrite')
-    .option('driver', 'com.mysql.cj.jdbc.Driver')
-    .option('dbtable', dbtable)
-    .option('user', 'austin')
-    .option('password', password)
-    .save())
+# (df2.write.format('jdbc')
+#     .option('url', url+dbname)
+#     .option('mode', 'overwrite')
+#     .option('driver', 'com.mysql.cj.jdbc.Driver')
+#     .option('dbtable', dbtable)
+#     .option('user', 'austin')
+#     .option('password', password)
+#     .save())
