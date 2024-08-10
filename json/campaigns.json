@@ -1,0 +1,41 @@
+{
+    "timestamp" : 1565395200,
+    "content_json" : {
+        "url" : "https://example.com/campagins/landing?code=12342",
+        "user_id": 254,
+        "browser_info" : ""
+    }
+}
+
+{
+    "timestamp" : 1565395232,
+    "content_json" : {
+        "url" : "https://example.com/campagins/landing?code=3342",
+        "user_id": 254,
+        "browser_info" : ""
+    }
+}
+{
+    "timestamp" : 1565395242,
+    "content_json" : {
+        "url" : "https://example.com/campagins/landing?code=142342",
+        "user_id": 254,
+        "browser_info" : ""
+    }
+}
+{
+    "timestamp" : 1565395252,
+    "content_json" : {
+        "url" : "https://example.com/campagins/landing?code=132342",
+        "user_id": 254,
+        "browser_info" : ""
+    }
+}
+{
+    "timestamp" : 1565395267,
+    "content_json" : {
+        "url" : "https://example.com/campagins/landing?code=11342",
+        "user_id": 254,
+        "browser_info" : ""
+    }
+}
