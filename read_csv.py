@@ -33,6 +33,7 @@ df = (
 #         )
 
 df2 = (df.select('*')
+       .filter("""DEST_COUNTRY_NAME == 'United States'""")
        .groupBy('DEST_COUNTRY_NAME', 'ORIGIN_COUNTRY_NAME')
        .agg(sum('count').alias('2010-2015_count'))
        .orderBy(desc('2010-2015_count'))
@@ -44,14 +45,8 @@ df3 = (
     df2.withColumn('rank', rank().over(w))
     )
 
-
-
-# rank.show(10)
-
-
-# df2.show(10)
 dbname = 'db4'
-dbtable = 'flights_rank_desc' # table name long text  2010-2015_United_state flights count
+dbtable = 'flights_United_States_rank' # table name long text  2010-2015_United_state flights count
 
 (df3.write.format('jdbc')
     .option('url', url+dbname)
