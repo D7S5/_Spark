@@ -1,3 +1,6 @@
+./spark-submit.sh ReadExample.py --py-files
+
+
 bin/spark-shell --jars mysql-connector-java_8.0.16-bin.jar
 
 pyarrow

@@ -1,6 +1,6 @@
 
 
--TABLE_SIZE
+-DB_SIZE
 
 SELECT table_schema,
        ROUND(SUM(data_length + index_length),2) as 'SIZE(B)',
@@ -10,4 +10,11 @@ SELECT table_schema,
 FROM information_schema.tables
 WHERE table_schema = 'db4'
 GROUP BY table_schema
-ORDER BY 2 DESC;
+ORDER BY 2 DESC
+
+mysql Metadata
+use information_schema;
+
+select TABLE_SCHEMA, TABLE_NAME, TABLE_ROWS, ((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024) as 'Size in MB'  from table_name where TABLE_NAME='table_name';
+
+;
