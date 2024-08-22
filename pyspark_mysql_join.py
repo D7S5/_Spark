@@ -42,8 +42,8 @@ if __name__ == "__main__":
         .load()
     )
 
-    df_departments.show()
-    df_employees.show()
+    df_departments.show(10)
+    df_employees.show(10)
 
     join_type = "inner" # full outer join
     join_expression = df_employees.department_id == df_departments.department_id

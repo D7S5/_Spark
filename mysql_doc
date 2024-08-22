@@ -1,0 +1,13 @@
+
+
+-TABLE_SIZE
+
+SELECT table_schema,
+       ROUND(SUM(data_length + index_length),2) as 'SIZE(B)',
+       ROUND(SUM(data_length + index_length)/(1024),2) as 'SIZE(KB)',
+       ROUND(SUM(data_length + index_length)/(1024*1024),2) as 'SIZE(MB)',
+       ROUND(SUM(data_length + index_length)/(1024*1024*1024),2) as 'SIZE(GB)'
+FROM information_schema.tables
+WHERE table_schema = 'db4'
+GROUP BY table_schema
+ORDER BY 2 DESC;

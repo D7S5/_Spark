@@ -19,4 +19,4 @@ if __name__ == "__main__":
 
 df = spark.read.parquet(sys.argv[1])
 
-df.show(20)
+df2 = (df.select('*')).show(20)
