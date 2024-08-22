@@ -1,0 +1,13 @@
+전처리
+
+Pyspark 양방향 udf
+genderID
+
+if man-> 0
+elif woman -> 1
+else 2
+
+if 0 -> a 
+else 1 -> b;
+
+
