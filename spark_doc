@@ -1,6 +1,6 @@
 전처리
 
-Pyspark 양방향 udf
+Pyspark 양방향 df
 genderID
 
 if man-> 0
@@ -10,4 +10,11 @@ else 2
 if 0 -> a 
 else 1 -> b;
 
+nullcheck, validation
 
+from pyspark.sql.functions import col
+
+df.filter("column IS NOT NULL").show()
+df.filter("NOT column IS NULL").show()
+df.filter(df.column.isNotNull()).show()
+df.filter(col("column").isNotNull()).show()
