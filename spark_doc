@@ -18,3 +18,13 @@ df.filter("column IS NOT NULL").show()
 df.filter("NOT column IS NULL").show()
 df.filter(df.column.isNotNull()).show()
 df.filter(col("column").isNotNull()).show()
+
+
+string -> integer
+type check
+
+from pyspark.sql.types import StringType
+
+validation
+
+df = df.filter(col(col_name).cast(StringType()).isNotNull())
