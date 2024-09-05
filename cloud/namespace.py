@@ -17,9 +17,11 @@ namespace = "ETL"
 pipeline_name = "click_steam_ingest"
 source_name = "clicks"
 
-# batch_id = ""
+batch_id = ULID.from_datetime(datetime.datetime.now())
+current_datetime = datetime.datetime.now()
 
-ulid = ULID.from_datetime(datetime.datetime.now()) # current datetime 
+in_path = f"gs://landing/{namespace}/{pipeline_name}{source_name}/{batch_id}/*"
+out_path = f"gs://staging/{namespace}/{pipeline_name}{source_name}/year={current_datetime.year}/month={current_datetime.month}/day={current_datetime.day}/{batch_id}"
 
 df = (
     spark.read.parquet(sys.argv[1])
