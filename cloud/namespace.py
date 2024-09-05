@@ -27,3 +27,7 @@ df = (
     spark.read.parquet(sys.argv[1])
 )
 
+df = (df.write.format('parquet')
+        .save(out_path))
+
+
