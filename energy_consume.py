@@ -25,6 +25,5 @@ df = (spark.read
       .csv(sys.argv[1])
 )
 
-df = (df.select('*'))
 
-df.show(30)
+df = (df.select("*").orderBy(col('TxnDate'), col('TxnTime'), ascending=[True, True])).show(30)
