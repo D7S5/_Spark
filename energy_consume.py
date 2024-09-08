@@ -25,5 +25,17 @@ df = (spark.read
       .csv(sys.argv[1])
 )
 
+df = (df.select('TxnDate', 'TxnTime', 'Consumption').orderBy(col('TxnDate'), col('TxnTime'), ascending=[True, True]))
 
-df = (df.select("*").orderBy(col('TxnDate'), col('TxnTime'), ascending=[True, True])).show(30)
+df.show(10)
+
+db_name = "db3"
+table_name = "energy_consume_stage1"
+
+(df.write.format('jdbc')
+    .option('url', url + db_name)
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', table_name)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
