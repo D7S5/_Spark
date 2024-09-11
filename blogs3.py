@@ -33,7 +33,7 @@ df = (spark.read.format('json')
     #   .schema(blogs_schema)
       .load(sys.argv[1]))
 
-
+df.printSchema()
 ts_pattern = "M/d/yyyy"
 
 # df2 = (df.select(to_date("Published", "M/d/yyyy").alias("date")))
@@ -51,10 +51,10 @@ df2.printSchema()
 # dbtable = 'blogs5'
 # db_name = 'db3'
 
-# (df2.write.format('jdbc')
-#     .option('url', url + db_name)
-#     .option('driver', 'com.mysql.cj.jdbc.Driver')
-#     .option('dbtable', dbtable)
-#     .option('user', 'austin')
-#     .option('password', password)
-#     .save())
+(df2.write.format('jdbc')
+    .option('url', url + db_name)
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', dbtable)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
