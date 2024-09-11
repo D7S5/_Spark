@@ -29,8 +29,6 @@ df = (spark.read
 ts_pattern = "dd MMM yyyy"
 ts_pattern2= 'HH:mm:ss'
 
-
-
 df2 = (df.select(
             to_date('TxnDate', ts_pattern).alias('TxnDate'),
               'TxnTime', date_format('TxnTime', ts_pattern2).alias('Txn_time'),
