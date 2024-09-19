@@ -27,20 +27,28 @@ df = (spark.read
 # df.printSchema()
 # df.show(20)
 
-df2 = (df
-       .select('*')
+ts_format = 'yyyy-MM-dd HH:mm:ss'
+
+df2 = (df.select(
+        '*',
+       from_unixtime('UTC', ts_format).alias('timestamp'))
        .withColumnRenamed('Fire Alarm', 'Fire_Alarm')
        .filter(col('Fire_Alarm') == True)
        )
+
+df2.printSchema()
+df2.show(20)
         
-df3 = (df2
-       .select(
-        avg(col('Humidity[%]')).alias('AVG(Humidity[%])'),
-        avg(col('`PM1.0`')).alias('AVG(PM1.0)'),
-        avg(col('`PM2.5`')).alias('AVG(PM2.5)'),
-        avg(col('`NC0.5`')).alias('AVG(NC0.5)'),
-        avg(col('`NC2.5`')).alias('AVG(NC2.5)'))
-        ).show()
+
+
+# df3 = (df2
+#        .select(
+#         avg(col('Humidity[%]')).alias('AVG(Humidity[%])'),
+#         avg(col('`PM1.0`')).alias('AVG(PM1.0)'),
+#         avg(col('`PM2.5`')).alias('AVG(PM2.5)'),
+#         avg(col('`NC0.5`')).alias('AVG(NC0.5)'),
+#         avg(col('`NC2.5`')).alias('AVG(NC2.5)'))
+#         ).show()
 # ?
 
 # db_name = "db3"
