@@ -29,36 +29,39 @@ df = (spark.read
 
 ts_format = 'yyyy-MM-dd HH:mm:ss'
 
-df2 = (df.select(
-        '*',
-       from_unixtime('UTC', ts_format).alias('timestamp'))
+df2 = (df
        .withColumnRenamed('Fire Alarm', 'Fire_Alarm')
        .filter(col('Fire_Alarm') == True)
-       )
+       .select(
+        '_c0',
+        from_unixtime('UTC', ts_format).alias('timestamp'),
+        'Temperature[C]',
+        'Humidity[%]',
+        'TVOC[ppb]',
+        'eCO2[ppm]',
+        'Raw H2','Raw Ethanol',
+        'Pressure[hPa]',
+        '`PM1.0`',
+        '`PM2.5`',
+        '`NC0.5`',
+        '`NC1.0`',
+        '`NC2.5`', 
+        '`CNT`',
+        'Fire_Alarm')
+        .orderBy('timestamp', ascending=[True]))
+#, 시간, 월 , 실내여부
 
-df2.printSchema()
-df2.show(20)
-        
+# df2.printSchema()
+# df2.show(20)
 
+db_name = "db3"
+table_name = "smoke_ts_sorted"
 
-# df3 = (df2
-#        .select(
-#         avg(col('Humidity[%]')).alias('AVG(Humidity[%])'),
-#         avg(col('`PM1.0`')).alias('AVG(PM1.0)'),
-#         avg(col('`PM2.5`')).alias('AVG(PM2.5)'),
-#         avg(col('`NC0.5`')).alias('AVG(NC0.5)'),
-#         avg(col('`NC2.5`')).alias('AVG(NC2.5)'))
-#         ).show()
-# ?
-
-# db_name = "db3"
-# table_name = "smoke_detection"
-
-# (df2.write.format('jdbc')
-#     .option('url', url + db_name)
-#     .option('driver', 'com.mysql.cj.jdbc.Driver')
-#     .option('dbtable', table_name)
-#     .option('user', 'austin')
-#     .option('password', password)
-#     .save())
+(df2.write.format('jdbc')
+    .option('url', url + db_name)
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', table_name)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
 
