@@ -51,8 +51,8 @@ df2 = (df
         .orderBy('timestamp', ascending=[True]))
 #, 시간, 월 , 실내여부
 
-# df2.printSchema()
-# df2.show(20)
+df2.printSchema()
+df2.show(20, truncate = False)
 
 db_name = "db3"
 table_name = "smoke_ts_sorted"
