@@ -2,12 +2,6 @@ import sys
 
 from pyspark.sql import SparkSession
 
-
-# if __name__ == "__main__":
-#     if len(sys.argv) != 2:
-#         print("Usage : mnmcount <file>", file=sys.stderr)
-#         sys.exit(-1)
-
 spark = (
     SparkSession.builder
         .master("local[*]")
@@ -16,22 +10,31 @@ spark = (
         .getOrCreate()
 )
 
-# mnm_file = sys.argv[1]
-path = "/home/austin/data/mnm_dataset.csv"
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print('path <> :' , file= sys.stderr)
+        sys.exit(-1)
 
-mnm_df = (spark.read.format("csv")
+df = (spark.read.format("csv")
             .option("header", "true")
             .option("inferSchema", "true")
-            .load(path))
+            .load(sys.argv[1]))
 
 
-count_mnm_df = mnm_df.select("State", "Color", "Count").groupBy("State", "Color").sum("Count").orderBy("sum(Count)", ascending=False)
+df2 = (df
+        .select("State", "Color", "Count")
+        .groupBy("State", "Color").sum("Count")
+        .orderBy("sum(Count)", ascending=False))
 
-count_mnm_df.show(n=50, truncate=False)
+df3 = (df
+       .select('State','Count')
+       .groupBy('State').sum("Count")
+       .orderBy('sum(Count)', ascending=False)
+       )
 
-print("Total Rows = %d" % (count_mnm_df.count()))
+df2.show(n=50, truncate=False)
+df3.show(n=50, truncate=False)
 
-spark.stop()
 
 
     
