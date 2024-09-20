@@ -38,7 +38,12 @@ df3.show(n=50, truncate=False)
 
 
     
-    
+# df.withColumn('column', 
+#                    when('col' == "case0", "")
+#                    .when('col'=="case1", "")
+#                    .when('col'.isNull(), "")
+#                    .otherwise('col')
+#                    ).show()```
 
 
 
