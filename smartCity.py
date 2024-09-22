@@ -4,6 +4,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from config.mysql_conf import *
 
+import re
+
 spark = (
     SparkSession.builder
     .master('local[*]')
@@ -24,19 +26,13 @@ df = (
     .csv(sys.argv[1])
     )
 
-df2 = (df
-        .select('Id','City','Country',
-                trim('Smart_Mobility ').alias('Smart_Mobility'),
-                'Smart_Environment',
-                trim('Smart_Government ').alias('Smart_Government'),
-                trim('Smart_Economy ').alias('Smart_Econmy'),
-                'Smart_People',
-                'Smart_Living',
-                'SmartCity_Index',
-                'SmartCity_Index_relative_Edmonton'))
+for each in df.schema.names:
+    df = df.withColumnRenamed(each,  re.sub(r'\s+([a-zA-Z_][a-zA-Z_0-9]*)\s*','',each.replace(' ', '')))
+
+df2 = df.select('*')
 
 df2.printSchema()
-df2.show(20, truncate = False)       
+df2.show(10, truncate = False)       
 
 dbname = 'db3'
 dbtable = 'smart_city' # table name long text  2010-2015_United_state flights count
