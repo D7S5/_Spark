@@ -27,7 +27,7 @@ df = (
     )
 
 for each in df.schema.names:
-    df = df.withColumnRenamed(each,  re.sub(r'\s+([a-zA-Z_][a-zA-Z_0-9]*)\s*','',each.replace(' ', '')))
+    df = df.withColumnRenamed(each,  re.sub(r'\s+([a-zA-Z_][a-zA-Z_0-9]*)\s*','', each.replace(' ', '')))
 
 df2 = df.select('*')
 
