@@ -44,3 +44,32 @@ db_name = 'db3'
 # ORDER BY pk DESC;
 
 # --No duplicates
+
+# SELECT (COUNT(*)-COUNT(type)) as type_nulls,
+# (COUNT(*)-COUNT(title)) as title_nulls,
+# (COUNT(*)-COUNT(director)) as director_nulls,
+# (COUNT(*)-COUNT(cast)) as cast_nulls,
+# (COUNT(*)-COUNT(country)) as country_nulls,
+# (COUNT(*)-COUNT(date_added)) as date_added_nulls,
+# (COUNT(*)-COUNT(release_year)) as release_year_nulls,
+# (COUNT(*)-COUNT(rating)) as rating_nulls,
+# (COUNT(*)-COUNT(duration)) as duration_nulls,
+# (COUNT(*)-COUNT(listed_in)) as listed_in_nulls,
+# (COUNT(*)-COUNT(description)) as description_nulls,
+
+
+# WITH cte AS 
+# (
+#  SELECT title, CONCAT(director, '---', cast) AS director_cast
+# FROM origin_netflix
+# )  
+
+# SELECT director_cast, COUNT(*) AS count
+# FROM cte
+# GROUP BY director_cast
+# HAVING COUNT(*) > 1
+# ORDER BY COUNT(*) DESC;
+
+# UPDATE origin_netflix  SET director = 'Alastair Fothergill' 
+# WHERE cast = 'David Attenborough';
+
