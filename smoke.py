@@ -50,7 +50,6 @@ df2 = (df.select('*'))
 #         '`CNT`',
 #         'Fire_Alarm')
 #         .orderBy('timestamp', ascending=[True]))
-#, 시간, 월 , 실내여부
 
 df2.printSchema()
 df2.show(20, truncate = False)
