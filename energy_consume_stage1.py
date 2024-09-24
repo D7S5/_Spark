@@ -17,7 +17,6 @@ if len(sys.argv) != 2:
     print("path <>: " , file = sys.stderr)
     exit(-1)
 
-
 df = (spark.read
       .option('header', True)
       .option('inferschema', True)
