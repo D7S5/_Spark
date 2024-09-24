@@ -27,35 +27,36 @@ df = (spark.read
 # df.printSchema()
 # df.show(20)
 
-ts_format = 'yyyy-MM-dd HH:mm:ss'
+df2 = (df.select('*'))
+# ts_format = 'yyyy-MM-dd HH:mm:ss'
 
-df2 = (df
-       .withColumnRenamed('Fire Alarm', 'Fire_Alarm')
-       .filter(col('Fire_Alarm') == True)
-       .select(
-        '_c0',
-        from_unixtime('UTC', ts_format).alias('timestamp'),
-        'Temperature[C]',
-        'Humidity[%]',
-        'TVOC[ppb]',
-        'eCO2[ppm]',
-        'Raw H2','Raw Ethanol',
-        'Pressure[hPa]',
-        '`PM1.0`',
-        '`PM2.5`',
-        '`NC0.5`',
-        '`NC1.0`',
-        '`NC2.5`', 
-        '`CNT`',
-        'Fire_Alarm')
-        .orderBy('timestamp', ascending=[True]))
+# df2 = (df
+#        .withColumnRenamed('Fire Alarm', 'Fire_Alarm')
+#        .filter(col('Fire_Alarm') == True)
+#        .select(
+#         '_c0',
+#         from_unixtime('UTC', ts_format).alias('timestamp'),
+#         'Temperature[C]',
+#         'Humidity[%]',
+#         'TVOC[ppb]',
+#         'eCO2[ppm]',
+#         'Raw H2','Raw Ethanol',
+#         'Pressure[hPa]',
+#         '`PM1.0`',
+#         '`PM2.5`',
+#         '`NC0.5`',
+#         '`NC1.0`',
+#         '`NC2.5`', 
+#         '`CNT`',
+#         'Fire_Alarm')
+#         .orderBy('timestamp', ascending=[True]))
 #, 시간, 월 , 실내여부
 
 df2.printSchema()
 df2.show(20, truncate = False)
 
 db_name = "db3"
-table_name = "smoke_ts_sorted"
+table_name = "origin_smoke_detection"
 
 (df2.write.format('jdbc')
     .option('url', url + db_name)

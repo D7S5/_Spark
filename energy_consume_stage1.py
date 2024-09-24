@@ -25,7 +25,7 @@ df = (spark.read
 
 # df.show(10)
 # print(df.dtypes)
-ts_pattern = "dd MMM yyyy"
+ts_pattern = "dd MMM"
 ts_pattern2= 'HH:mm:ss'
 
 df2 = (df.select(
