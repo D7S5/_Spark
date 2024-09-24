@@ -73,3 +73,6 @@ db_name = 'db3'
 # UPDATE origin_netflix  SET director = 'Alastair Fothergill' 
 # WHERE cast = 'David Attenborough';
 
+# UPDATE origin_netflix 
+# SET director = 'Not Given'
+# WHERE director IS NULL;
