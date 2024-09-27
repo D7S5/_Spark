@@ -163,3 +163,13 @@ db_name = 'db3'
 # listed_in null 제거
 
 # DELETE FROM origin_netflix WHERE show_id IN (SELECT show_id FROM (SELECT show_id FROM origin_netflix WHERE listed_in IS NULL) AS t);
+
+# SELECT (COUNT(*)-COUNT(type)) as type_nulls, (COUNT(*)-COUNT(title)) as title_nulls,
+#  (COUNT(*)-COUNT(director)) as director_nulls, 
+#  (COUNT(*)-COUNT(country)) as country_nulls,
+#  (COUNT(*)-COUNT(date_added)) as date_added_nulls,
+#  (COUNT(*)-COUNT(release_year)) as release_year_nulls,
+#  (COUNT(*)-COUNT(rating)) as rating_nulls,
+#  (COUNT(*)-COUNT(duration)) as duration_nulls,
+#  (COUNT(*)-COUNT(listed_in)) as listed_in_nulls
+#  from origin_netflix;
