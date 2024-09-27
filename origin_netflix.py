@@ -71,8 +71,29 @@ db_name = 'db3'
 # ORDER BY COUNT(*) DESC;
 
 # UPDATE origin_netflix  SET director = 'Alastair Fothergill' 
-# WHERE cast = 'David Attenborough';
-
+# WHERE cast = 'David Attenborough'
 # UPDATE origin_netflix 
 # SET director = 'Not Given'
 # WHERE director IS NULL;
+
+SELECT COALESCE(nt.country,nt2.country) 
+FROM origin_netflix  AS nt
+JOIN origin_netflix AS nt2 
+ON nt.director = nt2.director 
+AND nt.show_id != nt2.show_id
+WHERE nt.country IS NULL;
+
+
+# SELECT director, country, date_added
+# FROM origin_netflix
+# WHERE country IS NULL;
+
+# UPDATE origin_netflix 
+# SET country = 'Not Given'
+# WHERE country IS NULL;
+
+# date_added 행 null
+
+# SELECT show_id, date_added
+# FROM origin_netflix
+# WHERE date_added IS NULL;
