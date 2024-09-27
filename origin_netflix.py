@@ -173,3 +173,6 @@ db_name = 'db3'
 #  (COUNT(*)-COUNT(duration)) as duration_nulls,
 #  (COUNT(*)-COUNT(listed_in)) as listed_in_nulls
 #  from origin_netflix;
+
+
+# 날짜 포맷에 맞지 않는 행 제거 

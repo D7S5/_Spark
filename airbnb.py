@@ -30,7 +30,6 @@ df = (
         .load(sys.argv[1])
     )
 
-
 mode = 'overwrite'
 table_name = 'airbnb4'
 

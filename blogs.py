@@ -13,4 +13,4 @@ if len(sys.argv) != 2:
 
 df = (spark.read.format('json').load(sys.argv[1]))
 
-df.show()
+df.show(d)

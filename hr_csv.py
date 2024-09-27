@@ -47,14 +47,14 @@ df3.show(20, truncate= False)
 # df3 = (df2.select('*'))
 # df3.show(20, truncate = False)
        
-# dbname = 'db3'
-# dbtable = 'HR_dataset' # table name long text  2010-2015_United_state flights count
+dbname = 'db3'
+dbtable = 'HR_dataset' # table name long text  2010-2015_United_state flights count
 
-# (df.write.format('jdbc')
-#     .option('url', url+dbname)
-#     .option('mode', 'overwrite')
-#     .option('driver', 'com.mysql.cj.jdbc.Driver')
-#     .option('dbtable', dbtable)
-#     .option('user', 'austin')
-#     .option('password', password)
-#     .save())
+(df.write.format('jdbc')
+    .option('url', url+dbname)
+    .option('mode', 'overwrite')
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', dbtable)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
