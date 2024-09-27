@@ -96,18 +96,35 @@ WHERE nt.country IS NULL;
 # SET country = 'Not Given'
 # WHERE country IS NULL;
 
-# date_added 행 null
-
-# SELECT show_id, date_added
-# FROM origin_netflix
-# WHERE date_added IS NULL;
 
 # 분석에 불필요한 컬럼 제거
 # ALTER TABLE origin_netflix DROP COLUMN cast
 # ALTER TABLE origin_netflix DROP COLUMN description
 
+# """
 # 유효하지 않은 컬럼 제거
 # "and probably will. | NULL | NULL  | Not Given | Not Given | NULL       | NULL         | NULL   | NULL     | NULL
-
 # DELETE FROM origin_netflix WHERE where type IS NULL AND title IS NULL;
-sel
+# """
+
+# """
+# date_added 행 null
+# SELECT show_id, date_added
+# FROM origin_netflix
+# WHERE date_added IS NULL;
+# """
+
+# """
+# select * from origin_netflix where date_added IS NULL;
+# null 제거 
+# DELETE FROM origin_netflix WHERE show_id IN ('s733', 's6796', 's8420');
+# """
+
+
+# rating is null  select pk, rating 
+# select show_id, rating from origin_netflix where rating IS NULL;
+
+# 문제 https://freedeveloper.tistory.com/490 
+# DELETE FROM origin_netflix WHERE show_id IN (SELECT show_id FROM origin_netflix WHERE rating IS NULL);
+# -> 해결책 서브쿼리 사 
+# DELETE FROM origin_netflix WHERE show_id IN (SELECT show_id FROM (SELECT show_id FROM origin_netflix WHERE rating IS NULL) AS t);
