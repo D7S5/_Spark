@@ -80,12 +80,12 @@ db_name = 'db3'
 # SET director = 'Not Given'
 # WHERE director IS NULL;
 
-SELECT COALESCE(nt.country,nt2.country) 
-FROM origin_netflix  AS nt
-JOIN origin_netflix AS nt2 
-ON nt.director = nt2.director 
-AND nt.show_id != nt2.show_id
-WHERE nt.country IS NULL;
+# SELECT COALESCE(nt.country,nt2.country) 
+# FROM origin_netflix  AS nt
+# JOIN origin_netflix AS nt2 
+# ON nt.director = nt2.director 
+# AND nt.show_id != nt2.show_id
+# WHERE nt.country IS NULL;
 
 
 # SELECT director, country, date_added
@@ -126,5 +126,40 @@ WHERE nt.country IS NULL;
 
 # 문제 https://freedeveloper.tistory.com/490 
 # DELETE FROM origin_netflix WHERE show_id IN (SELECT show_id FROM origin_netflix WHERE rating IS NULL);
-# -> 해결책 서브쿼리 사 
+# -> 해결책 서브쿼리 사용
 # DELETE FROM origin_netflix WHERE show_id IN (SELECT show_id FROM (SELECT show_id FROM origin_netflix WHERE rating IS NULL) AS t);
+
+# 첫 번째 국가 유지 country -> country1 
+
+# ALTER TABLE origin_netflix 
+# ADD country1 varchar(500);
+
+# SPLIT_PART ->SUBSTRING_IDNEX
+
+# SELECT
+# SUBSTRING_INDEX(country,',',1) AS country1,
+# SUBSTRING_INDEX(country,',',2), 
+# SUBSTRING_INDEX(country,',',4),
+# SUBSTRING_INDEX(country,',',5),
+# SUBSTRING_INDEX(country,',',6),  
+# SUBSTRING_INDEX(country,',',7),
+# SUBSTRING_INDEX(country,',',8),
+# SUBSTRING_INDEX(country,',',9), 
+# SUBSTRING_INDEX(country,',',10)
+# FROM origin_netflix;
+
+# """
+# UPDATE origin_netflix SET country1 = SUBSTRING_INDEX(country, ',',1 );
+
+# ALTER TABLE origin_netflix DROP COLUMN country;
+# ALTER TABLE origin_netflix RENAME COLUMN country1 TO country;
+# """
+
+
+# DELETE FROM origin_netflix where show_id 
+# IN (SELECT show_id FROM 
+# (SELECT show_id FROM origin_netflix where duration IS NULL) as t);
+
+# listed_in null 제거
+
+# DELETE FROM origin_netflix WHERE show_id IN (SELECT show_id FROM (SELECT show_id FROM origin_netflix WHERE listed_in IS NULL) AS t);
