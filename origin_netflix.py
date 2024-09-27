@@ -38,6 +38,10 @@ db_name = 'db3'
     .option('password', password)
     .save())
 
+
+# 출처
+# https://www.kaggle.com/datasets/ariyoomotade/netflix-data-cleaning-analysis-and-visualization
+
 # SELECT 'pk', COUNT(*)                                                                                                                                                                            
 # FROM table 
 # GROUP BY pk
@@ -97,3 +101,13 @@ WHERE nt.country IS NULL;
 # SELECT show_id, date_added
 # FROM origin_netflix
 # WHERE date_added IS NULL;
+
+# 분석에 불필요한 컬럼 제거
+# ALTER TABLE origin_netflix DROP COLUMN cast
+# ALTER TABLE origin_netflix DROP COLUMN description
+
+# 유효하지 않은 컬럼 제거
+# "and probably will. | NULL | NULL  | Not Given | Not Given | NULL       | NULL         | NULL   | NULL     | NULL
+
+# DELETE FROM origin_netflix WHERE where type IS NULL AND title IS NULL;
+sel
