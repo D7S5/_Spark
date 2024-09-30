@@ -73,15 +73,12 @@ df2.show(20)
 w_db_name = 'db4'
 w_table_name = 'netflix_country_Egypt'
 
-
 # 인도 india
-# s5971, s2639, s5975, s5969, s5971, s4668, s7807
+# s2639, s4668, s5970, s5971, s5975, s5969, s6002, s7807
+# show_id = 's7807'; null 체크 안들어감 -> date_added 공백 문제
 
 # 이집트어 Egypt 바이트 문제 영어아님 -> 수작업 번역 
 # 깨짐문제 : s8775, s8795, s2639
-
-# show_id = 's7807'; null 체크 안들어감 -> date_added 공백 문제
-
 
 (df2.write.format('jdbc')
     .option('url', url + w_db_name)
