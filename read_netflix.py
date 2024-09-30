@@ -54,25 +54,34 @@ result_df = df.withColumn('bad_records',
 #        )
 
 # df2 = (result_df.filter(col("bad_records") == "True")
-#             .select('show_id','type', 'title', 'director', 
-#                  to_date("date_added", format = dt_format).alias("date_added"),
-#                 'release_year', 'rating', 'duration', 'listed_in',
-#                  'country')
-#                  .filter(col("show_id") == 's2639')
-#                  )
+            # .select('show_id','type', 'title', 'director', 
+            #      to_date("date_added", format = dt_format).alias("date_added"),
+            #     'release_year', 'rating', 'duration', 'listed_in',
+            #      'country')
+            #      )
 
-df2 = (result_df.filter(col("country") == "india")
-       .select('*'))
+df2 = (result_df.filter(col("country") == "Egypt")
+       .select('show_id','type', 'title', 'director', 
+                 to_date("date_added", format = dt_format).alias("date_added"),
+                'release_year', 'rating', 'duration', 'listed_in',
+                 'country')
+                 )
 
 df2.printSchema()
 df2.show(20)
 
 w_db_name = 'db4'
-w_table_name = 'netflix_country_india'
+w_table_name = 'netflix_country_Egypt'
 
-# s5971, s2639, s5975, s5969, s5971
-# 인도 india ,
-#  이집트어 Egypt 바이트 문제, 깨짐문제  : show_id s2639
+
+# 인도 india
+# s5971, s2639, s5975, s5969, s5971, s4668, s7807
+
+# 이집트어 Egypt 바이트 문제 영어아님 -> 수작업 번역 
+# 깨짐문제 : s8775, s8795, s2639
+
+# show_id = 's7807'; null 체크 안들어감 -> date_added 공백 문제
+
 
 (df2.write.format('jdbc')
     .option('url', url + w_db_name)
