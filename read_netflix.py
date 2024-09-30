@@ -27,11 +27,10 @@ df = (
 )
 
 # date_formats = ["dd/MM/yyyy", "yyyy-MM-dd", "MM/dd/yyyy"]
-bad_records0 = []
 
-for date_format in date_formats:
-     df = df.withColumn('date', to_date(col('date_added'), date_format))
-     bad_records0.append()
+
+# for date_format in date_formats:
+#      df = df.withColumn('date', to_date(col('date_added'), date_format))
 format_check = "MMMM dd, yyyy"
 
 result_df = df.withColumn('bad_records',
@@ -40,11 +39,14 @@ result_df = df.withColumn('bad_records',
                             .when(to_date(col("date_added"), format_check).isNotNull(), "True")
                             .otherwise("False"))
 
-esult_df = df.withColumn('bad_records', 
-                         when(col('FileName') == 'leaves',
-                        when(col("id").isNull(), "False")
-                        .when(to_date(col("id"), "dd MMM yyyy").isNotNull(), "True")
-                        .otherwise("False") )
+# java.time.format.DateTimeParseException
+# If an exception occurs, add show_id to the badrecord column. 
+
+# esult_df = df.withColumn('bad_records', 
+#                          when(col('FileName') == 'leaves',
+#                         when(col("id").isNull(), "False")
+#                         .when(to_date(col("id"), "dd MMM yyyy").isNotNull(), "True")
+#                         .otherwise("False") )
                             # .when(col('FileName') == 'emp',
                             # when(col("date_added").isNull(), "False")
                             # .when(to_date(col("date_added"), "dd-MM-yyyy HH:mm").isNotNull(), "True")
@@ -52,7 +54,7 @@ esult_df = df.withColumn('bad_records',
 
 
 df2 = (result_df
-       .select('show_id', 'bad_records')
+       .select('bad_records')
        .filter(col("bad_records") == "False")
        )
     
