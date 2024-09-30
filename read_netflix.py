@@ -28,16 +28,16 @@ df = (
     .load()
 )
 
-date_formats = ["dd/MM/yyyy", "yyyy-MM-dd", "MM/dd/yyyy"]
+# date_formats = ["dd/MM/yyyy", "yyyy-MM-dd", "MM/dd/yyyy"]
 
 # for date_format in date_formats:
 #      df = df.withColumn('date', to_date(col('date_added'), date_format))
-format_check = ["MMMM dd, yyyy", " MMMM dd, yyyy"]
+dt_format = "MMMM dd, yyyy"
 
 result_df = df.withColumn('bad_records',
                         #    when(col('FileName') == 'leaves',
                             when(col("date_added").isNull(), "False")
-                            .when(to_date(col("date_added"), format_check).isNotNull(), "True")
+                            .when(to_date(col("date_added"), dt_format).isNotNull(), "True")
                             .otherwise("False"))
 
 # java.time.format.DateTimeParseException
@@ -55,18 +55,21 @@ result_df = df.withColumn('bad_records',
                             # .otherwise("False"))
 
 df2 = (result_df
-       .select('show_id', 'title', 'date_added', 'bad_records')
-       .filter(col("bad_records") == "False")
+       .filter(col("bad_records") == "True")
+       .select('show_id', 'title', 
+               to_date("date_added", format = dt_format).alias("date_added")
+               , 'bad_records')
        )
+df2.printSchema()
+df2.show(20)
 
-w_db_name = 'db4'
-w_table_name = 'badrecord_netflix'
+# w_db_name = 'db4'
+# w_table_name = 'badrecord_true_netflix'
 
-(df2.write.format('jdbc')
-    .option('url', url + w_db_name)
-    .option('driver', 'com.mysql.cj.jdbc.Driver')
-    .option('dbtable', w_table_name)
-    .option('user', 'austin')
-    .option('password', password)
-    .save())
-
+# (df2.write.format('jdbc')
+#     .option('url', url + w_db_name)
+#     .option('driver', 'com.mysql.cj.jdbc.Driver')
+#     .option('dbtable', w_table_name)
+#     .option('user', 'austin')
+#     .option('password', password)
+#     .save())
