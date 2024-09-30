@@ -26,9 +26,46 @@ df = (
     .load()
 )
 
-df.printSchema()
+# date_formats = ["dd/MM/yyyy", "yyyy-MM-dd", "MM/dd/yyyy"]
+bad_records0 = []
 
-df2 = (
-    df.select('show_id', 'date_added'))
+for date_format in date_formats:
+     df = df.withColumn('date', to_date(col('date_added'), date_format))
+     bad_records0.append()
+format_check = "MMMM dd, yyyy"
 
-df2.show(20)
+result_df = df.withColumn('bad_records',
+                        #    when(col('FileName') == 'leaves',
+                            when(col("date_added").isNull(), "False")
+                            .when(to_date(col("date_added"), format_check).isNotNull(), "True")
+                            .otherwise("False"))
+
+esult_df = df.withColumn('bad_records', 
+                         when(col('FileName') == 'leaves',
+                        when(col("id").isNull(), "False")
+                        .when(to_date(col("id"), "dd MMM yyyy").isNotNull(), "True")
+                        .otherwise("False") )
+                            # .when(col('FileName') == 'emp',
+                            # when(col("date_added").isNull(), "False")
+                            # .when(to_date(col("date_added"), "dd-MM-yyyy HH:mm").isNotNull(), "True")
+                            # .otherwise("False"))
+
+
+df2 = (result_df
+       .select('show_id', 'bad_records')
+       .filter(col("bad_records") == "False")
+       )
+    
+df2.show()
+
+# w_db_name = 'db4'
+# w_table_name = 'fix_netflix_datetime'
+
+# (df2.write.format('jdbc')
+#     .option('url', url + w_db_name)
+#     .option('driver', 'com.mysql.cj.jdbc.Driver')
+#     .option('dbtable', w_table_name)
+#     .option('user', 'austin')
+#     .option('password', password)
+#     .save())
+
