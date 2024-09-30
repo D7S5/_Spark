@@ -44,32 +44,33 @@ result_df = df.withColumn('bad_records',
 # If an exception occurs, add show_id to the badrecord column. 
 # spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
 
-# esult_df = df.withColumn('bad_records', 
-#                          when(col('FileName') == 'leaves',
-#                         when(col("id").isNull(), "False")
-#                         .when(to_date(col("id"), "dd MMM yyyy").isNotNull(), "True")
-#                         .otherwise("False") )
-                            # .when(col('FileName') == 'emp',
-                            # when(col("date_added").isNull(), "False")
-                            # .when(to_date(col("date_added"), "dd-MM-yyyy HH:mm").isNotNull(), "True")
-                            # .otherwise("False"))
+# result_df.printSchema()
 
-df2 = (result_df
-       .filter(col("bad_records") == "True")
-       .select('show_id', 'title', 
-               to_date("date_added", format = dt_format).alias("date_added")
-               , 'bad_records')
-       )
+# df2 = (result_df
+#        .filter(col("bad_records") == "True")
+#        .select('*', 
+#                to_date("date_added", format = dt_format).alias("date_added")
+#                )
+#        )
+
+df2 = (result_df.filter(col("bad_records") == "True")
+            .select('show_id','type', 'title', 'director', 
+                 to_date("date_added", format = dt_format).alias("date_added"),
+                'release_year', 'rating', 'duration', 'listed_in',
+                 'country')
+                 )
 df2.printSchema()
 df2.show(20)
 
-# w_db_name = 'db4'
-# w_table_name = 'badrecord_true_netflix'
+w_db_name = 'db4'
+w_table_name = 'netflix'
 
-# (df2.write.format('jdbc')
-#     .option('url', url + w_db_name)
-#     .option('driver', 'com.mysql.cj.jdbc.Driver')
-#     .option('dbtable', w_table_name)
-#     .option('user', 'austin')
-#     .option('password', password)
-#     .save())
+# s5971 5975d
+# 인도어 문제
+(df2.write.format('jdbc')
+    .option('url', url + w_db_name)
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', w_table_name)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
