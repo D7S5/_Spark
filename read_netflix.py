@@ -65,8 +65,9 @@ df2.show(20)
 w_db_name = 'db4'
 w_table_name = 'netflix'
 
-# s5971 5975d
-# 인도어 문제
+# s5971 s5975, s5969, s5971
+# 인도 india , 이집트 Egypt 바이트 문제
+
 (df2.write.format('jdbc')
     .option('url', url + w_db_name)
     .option('driver', 'com.mysql.cj.jdbc.Driver')
