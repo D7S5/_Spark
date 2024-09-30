@@ -11,6 +11,8 @@ spark = (
     .getOrCreate()
 )
 
+spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
+
 db_name = "db3"
 dbtable = 'origin_netflix'
 sql = "SELECT * FROM origin_netflix" 
@@ -41,6 +43,7 @@ result_df = df.withColumn('bad_records',
 
 # java.time.format.DateTimeParseException
 # If an exception occurs, add show_id to the badrecord column. 
+# spark.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
 
 # esult_df = df.withColumn('bad_records', 
 #                          when(col('FileName') == 'leaves',
@@ -52,22 +55,19 @@ result_df = df.withColumn('bad_records',
                             # .when(to_date(col("date_added"), "dd-MM-yyyy HH:mm").isNotNull(), "True")
                             # .otherwise("False"))
 
-
 df2 = (result_df
-       .select('bad_records')
+       .select('show_id', 'title', 'bad_records')
        .filter(col("bad_records") == "False")
        )
-    
-df2.show()
 
-# w_db_name = 'db4'
-# w_table_name = 'fix_netflix_datetime'
+w_db_name = 'db4'
+w_table_name = 'badrecord_netflix'
 
-# (df2.write.format('jdbc')
-#     .option('url', url + w_db_name)
-#     .option('driver', 'com.mysql.cj.jdbc.Driver')
-#     .option('dbtable', w_table_name)
-#     .option('user', 'austin')
-#     .option('password', password)
-#     .save())
+(df2.write.format('jdbc')
+    .option('url', url + w_db_name)
+    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('dbtable', w_table_name)
+    .option('user', 'austin')
+    .option('password', password)
+    .save())
 
