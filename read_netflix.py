@@ -28,12 +28,11 @@ df = (
     .load()
 )
 
-# date_formats = ["dd/MM/yyyy", "yyyy-MM-dd", "MM/dd/yyyy"]
-
+date_formats = ["dd/MM/yyyy", "yyyy-MM-dd", "MM/dd/yyyy"]
 
 # for date_format in date_formats:
 #      df = df.withColumn('date', to_date(col('date_added'), date_format))
-format_check = "MMMM dd, yyyy"
+format_check = ["MMMM dd, yyyy", " MMMM dd, yyyy"]
 
 result_df = df.withColumn('bad_records',
                         #    when(col('FileName') == 'leaves',
@@ -56,7 +55,7 @@ result_df = df.withColumn('bad_records',
                             # .otherwise("False"))
 
 df2 = (result_df
-       .select('show_id', 'title', 'bad_records')
+       .select('show_id', 'title', 'date_added', 'bad_records')
        .filter(col("bad_records") == "False")
        )
 
