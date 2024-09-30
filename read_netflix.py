@@ -53,20 +53,26 @@ result_df = df.withColumn('bad_records',
 #                )
 #        )
 
-df2 = (result_df.filter(col("bad_records") == "True")
-            .select('show_id','type', 'title', 'director', 
-                 to_date("date_added", format = dt_format).alias("date_added"),
-                'release_year', 'rating', 'duration', 'listed_in',
-                 'country')
-                 )
+# df2 = (result_df.filter(col("bad_records") == "True")
+#             .select('show_id','type', 'title', 'director', 
+#                  to_date("date_added", format = dt_format).alias("date_added"),
+#                 'release_year', 'rating', 'duration', 'listed_in',
+#                  'country')
+#                  .filter(col("show_id") == 's2639')
+#                  )
+
+df2 = (result_df.filter(col("country") == "india")
+       .select('*'))
+
 df2.printSchema()
 df2.show(20)
 
 w_db_name = 'db4'
-w_table_name = 'netflix'
+w_table_name = 'netflix_country_india'
 
-# s5971 s5975, s5969, s5971
-# 인도 india , 이집트 Egypt 바이트 문제
+# s5971, s2639, s5975, s5969, s5971
+# 인도 india ,
+#  이집트어 Egypt 바이트 문제, 깨짐문제  : show_id s2639
 
 (df2.write.format('jdbc')
     .option('url', url + w_db_name)
