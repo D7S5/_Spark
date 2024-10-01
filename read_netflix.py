@@ -60,20 +60,25 @@ result_df = df.withColumn('bad_records',
             #      'country')
             #      )
 
-df2 = (result_df.filter(col("bad_records") == "True")
+# df2 = (result_df.filter(col("bad_records") == "True")
+#        .select('show_id','type', 'title', 'director', 
+#                  to_date("date_added", format = dt_format).alias("date_added"),
+#                 'release_year', 'rating', 'duration', 'listed_in',
+#                  'country')
+#                  )
+
+df2 = (result_df.filter(col("bad_records") == "False")
        .select('show_id','type', 'title', 'director', 
-                 to_date("date_added", format = dt_format).alias("date_added"),
+                 'date_added',
                 'release_year', 'rating', 'duration', 'listed_in',
                  'country')
                  )
-
-df3 = False 
 
 df2.printSchema()
 df2.show(20)
 
 w_db_name = 'db4'
-w_table_name = 'badrecord_true_netflix_v2'
+w_table_name = 'badrecord_false_netflix_v2'
 
 # date_added 컬럼에 country , 날짜 포맷 형식 맨 앞 공백
 # 인도 india
