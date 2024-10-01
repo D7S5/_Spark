@@ -60,25 +60,28 @@ result_df = df.withColumn('bad_records',
             #      'country')
             #      )
 
-df2 = (result_df.filter(col("country") == "Egypt")
+df2 = (result_df.filter(col("bad_records") == "True")
        .select('show_id','type', 'title', 'director', 
                  to_date("date_added", format = dt_format).alias("date_added"),
                 'release_year', 'rating', 'duration', 'listed_in',
                  'country')
                  )
 
+df3 = False 
+
 df2.printSchema()
 df2.show(20)
 
 w_db_name = 'db4'
-w_table_name = 'netflix_country_Egypt'
+w_table_name = 'badrecord_true_netflix_v2'
 
+# date_added 컬럼에 country , 날짜 포맷 형식 맨 앞 공백
 # 인도 india
-# s2639, s4668, s5970, s5971, s5975, s5969, s6002, s7807
+# s2640, s4668, s5970, s5971, s5975, s5969, s6002, s7807
 # show_id = 's7807'; null 체크 안들어감 -> date_added 공백 문제
 
-# 이집트어 Egypt 바이트 문제 영어아님 -> 수작업 번역 
-# 깨짐문제 : s8775, s8795, s2639
+# 이집트어 Egypt 바이트 문제 영어아닌 이집트어 유니코드 -> 수작업 번역
+# 깨짐문제 : s8775, s8795, s2639 // * 스캔시 정상
 
 (df2.write.format('jdbc')
     .option('url', url + w_db_name)
