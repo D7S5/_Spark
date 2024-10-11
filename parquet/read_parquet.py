@@ -7,10 +7,12 @@ spark = (
         .getOrCreate()
 )
 
-source = "/home/austin/sink/part-00000-3efa964b-cc46-4c6a-adbd-e03705d0b9bc-c000.snappy.parquet"
+source = "/home/austin/databricks-datasets/learning-spark-v2/parquet_amazon"
 
 df = (
     spark.read.parquet(source)
 )
 
-df.show(10)
+df2 = (df.select('*'))
+
+df2.show()
