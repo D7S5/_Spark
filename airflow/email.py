@@ -23,5 +23,11 @@ send_email_task = EmailOperator(
     html_content = ""
 )
 
-
+# DAG 개수에 따른 스케줄링 비용
+# dag 관리
 # 파이프라인 요청 -> 파이프라인 스케줄 확인 -> DAG 작성 -> 배포
+
+# API KEY, Secret code 하드코딩 주의 secret 저장소 사용
+
+#정상적으로 스케줄 되지 않은 DAG를 모아서 슬랙채널 알림 - socar 블로그
+
