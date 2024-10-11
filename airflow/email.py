@@ -24,4 +24,4 @@ send_email_task = EmailOperator(
 )
 
 
-
+# 파이프라인 요청 -> 파이프라인 스케줄 확인 -> DAG 작성 -> 배포
