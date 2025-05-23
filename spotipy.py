@@ -5,6 +5,7 @@ import sys
 
 from config.mysql_conf import *
 
+
 spark = (
     SparkSession.builder
         .master("local[*]")
@@ -23,7 +24,7 @@ df = (spark.read
       .csv(sys.argv[1])
 )
 
-df2 = (df.select('title',
+df2 = (df.select('title',   
                  col('rank').cast('int'),
                  col('date').cast('date'),
                  'artist',

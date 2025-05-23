@@ -15,4 +15,4 @@ df = (
 
 df2 = (df.select('*'))
 
-df2.show()
+df2.show(p)
