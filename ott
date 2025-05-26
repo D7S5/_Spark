@@ -31,4 +31,4 @@ flink, spark streaming
 
 redshift, glue, 
 
-kafka,airflow,spark,hadoop
+kafka,airflow,spark,hadoop,
