@@ -1,13 +1,12 @@
 from pyspark.sql import SparkSession
 from config.mysql_conf import *
-# project cost
 from schema.blogs_schema import *
 import sys
 
 
 spark = (
     SparkSession.builder
-    .master('local[*]')
+    .master('local[*]') 
     .appName('loans_parquet')
     .config('spark.driver.extraClassPath', jars)
     .getOrCreate()

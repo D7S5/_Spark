@@ -25,6 +25,10 @@ df = (spark.read
 
 # df.show(10)
 # print(df.dtypes)
+
+
+# DW 들어갈 시 타입 지정 
+
 ts_pattern = "dd MMM"
 ts_pattern2= 'HH:mm:ss'
 

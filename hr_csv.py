@@ -53,7 +53,7 @@ dbtable = 'HR_dataset' # table name long text  2010-2015_United_state flights co
 (df.write.format('jdbc')
     .option('url', url+dbname)
     .option('mode', 'overwrite')
-    .option('driver', 'com.mysql.cj.jdbc.Driver')
+    .option('driver', driver)
     .option('dbtable', dbtable)
     .option('user', 'austin')
     .option('password', password)

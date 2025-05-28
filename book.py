@@ -24,7 +24,9 @@ df = (spark.read
       .csv(sys.argv[1])
 )
 
-df2 = (df.select('*'))
+df2 = ( df.select('*') )
+
+df2.show(10)
 
 db_name = "db2"
 table_name = "origin_book"
